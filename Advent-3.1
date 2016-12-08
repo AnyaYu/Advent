@@ -1,0 +1,37 @@
+/**
+ * Created by anna on 08.12.2016.
+ */
+
+
+fun main(args: Array<String>) {
+    var inputList = listOf( 541, 588, 421
+            , 827, 272, 126
+            , 660, 514, 367
+            ,  39, 703, 839,
+            1, 1, 1
+
+
+    )
+
+
+
+    fun createListTriangle(list: List<Int>): MutableList<Triangle>{
+        var listTriangle = mutableListOf(Triangle(5, 10, 20))
+        for (side in list.indices step 3){
+            listTriangle.add(Triangle(list[side], list[side+1], list[side+2]))
+        }
+        return listTriangle
+    }
+
+    fun Triangle.possibleTriangle(): Boolean {
+        return side1 + side2 > side3 && side1 + side3 > side2 && side3 + side2 > side1
+    }
+        var fullListTriangle = createListTriangle(inputList)
+
+    var listPossible: List<Boolean> = fullListTriangle.map{it.possibleTriangle()}.filter{it==true}
+
+
+    print (listPossible.size)
+}
+
+data class Triangle (var side1: Int, var side2: Int, var side3: Int)
