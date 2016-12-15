@@ -1,0 +1,64 @@
+import java.io.File
+
+
+fun main(args: Array<String>){
+
+   val input: List<String> = File("/Users/annayushina/Documents/advent_7.txt").readLines()
+   val inBrackets: List<String> = input.map{it.substringAfter('[').substringBefore(']')}
+    val notInBrackets = input.map{Pair(it.substringBefore('['), it.substringAfter(']')) }
+
+ //   val listPair: List<Pair<Pair<String, String>, String>> = notInBrackets.zip(inBrackets)
+
+
+    fun hasAbba (string: String): Boolean {
+        var result = false
+        for (i in 0..string.length-4){
+            if (string[i] == string[i+3] && string[i+1] == string[i+2] && string[i]!=string[i+1]){
+                result = true
+            }
+        }
+        return result
+    }
+
+
+    fun isValid (string: Mystring) =
+        !hasAbba(string.partInBrackets) && (hasAbba(string.firstPart) || hasAbba(string.thirdPart))
+
+    var r = 0
+    val listValid: MutableList<Boolean> = mutableListOf()
+    for (i in inBrackets.indices) {
+        val valid = isValid(Mystring(notInBrackets[i].first, inBrackets[i], notInBrackets[i].second))
+            if (valid) {
+            listValid.add(valid)
+                r+=1
+        }
+
+        }
+
+
+
+        println(notInBrackets.size)
+    println(inBrackets.size)
+     println(listValid.filter{it}.size)
+    println(hasAbba("giiihiuuuuyiiy"))
+    println(isValid(Mystring(notInBrackets[0].first, inBrackets[0], notInBrackets[0].second)))
+    println(r)
+//  val listBoolean = listPair.map { Pair(hasAbba(it.first), hasAbba(it.second)) }
+/*
+    println(listBoolean[3])
+
+    val groupBy: List<Pair<Boolean, Boolean>>? = listBoolean.groupBy { it.first == true && it.second == false }.get(true)
+
+    if (groupBy != null) {
+        println(groupBy.size)
+    }*/
+ /*  val inBrackets = input.map { it.substringBefore(']').substringAfter('[') }
+
+    for (string in inBrackets){
+        println(string)
+    }*/
+
+
+}
+
+data class Mystring (val firstPart: String, val partInBrackets: String, val thirdPart: String )
