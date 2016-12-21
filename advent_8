@@ -1,0 +1,41 @@
+
+/**
+ * Created by annayushina on 18/12/16.
+ */
+
+fun main(args: Array<String>){
+    val input: List<String> = File("src/advent_8.txt").readLines().filter { it.isNotBlank() }
+    val listPoints: MutableList<MyPoint> = mutableListOf()
+    for (y in 0..5){
+        for (x in 0..49){
+            listPoints.add(MyPoint(x, y, false))
+        }
+    }
+    println( listPoints.filter { it.y == 1 }[0])
+
+    fun action (string: String){
+        if (string.startsWith("rect")){
+           val x = string.take(5).toInt()
+            val y = string.take(7).toInt()
+            for (i in 0..x){
+                listPoints[i].vkl = true
+            }
+            for (i in 50..(50+y)){
+                listPoints[i].vkl = true
+
+            }
+        }
+        else if (string.startsWith("rotate row")){
+            val y = string.take(13).toInt()
+            var listRow: MutableList<MyPoint> = listPoints.filter { it.y == y }.toMutableList()
+                for (i in 0..49){
+                    listRow[i] = listRow[i+string.takeLast(2).trim().toInt()]
+
+
+                }
+
+        }
+    }
+}
+
+data class MyPoint (val x: Int, val y: Int, var vkl: Boolean)
